@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="contact-form" role="form">
+    <div style="margin: 50px;background-color: #e4f0f9;padding: 100px;">
+        <h1>create vehicals</h1>
+        
+            <label>registration number</label><br />
+            <input type="text" id="rname" required /><br /><br />
+            <label>car type</label><br />
+
+            <select id="cars" name="cars">
+                <option value="Sedan">Sedan</option>
+                <option value="PICKUP">PICKUP</option>
+                <option value="LIMO">LIMO</option>
+                <option value="Audi">Audi</option>
+            </select><br /><br />
+            <label>choose feture for your car</label><br />
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="seat belts">
+            <label for="vehicle1"> seat belts</label><br>
+            <input type="checkbox" id="vehicle2" name="vehicle2" value="front air bag">
+            <label for="vehicle2">front air bag</label><br>
+            <input type="checkbox" id="vehicle3" name="vehicle3" value="ABS">
+            <label for="vehicle3"> ABS</label><br>
+
+<br><br>
+            <input type="submit" value="Submit" >
+       
+    </div>
+</form>
+
+    <!-- <script>
+        function submit(){
+        //     let rname = document.getElementById("rname").value;
+        //     let cars = document.getElementById("cars").value;
+        //     let vehicle1 = document.getElementById("vehicle1").value;
+        //     let vehicle2 = document.getElementById("vehicle2").value;
+        //     let vehicle3 = document.getElementById("vehicle3").value;
+        //    let obj ={
+        //     rname,cars,vehicle1,vehicle2,vehicle3
+        //    }
+        var obj = {"car_type":"limo","registration":"2345","feature":["abc","frond air bag","seat belat"]}
+            console.log(obj);
+            var xhr = new XMLHttpRequest();
+            var url = "http://127.0.0.1:8000/createvehicales"
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader('Content-Type', "application/json");
+            xhr.onreadystatechange = function(){
+                if(this.readyState === XMLHttpRequest.DONE && this.status === 200)
+                {
+                    //requst prosesing here
+                }
+            }
+            xhr.send(obj);
+
+            
+        } 
+    </script> -->
+    <script>
+       const contactForm = document.getElementById("contact-form");
+
+       contactForm.addEventListener("submit", function(event) {
+
+         event.preventDefault();
+
+           var request = new XMLHttpRequest();
+           var url = "http://127.0.0.1:8000/createvehicales";
+           request.open("POST", url, true);
+           request.setRequestHeader("Content-Type", "application/json");
+           request.onreadystatechange = function () {
+               if (request.readyState === 4 && request.status === 200) {
+                   var jsonData = JSON.parse(request.response);
+                   console.log(jsonData);
+               }
+           };
+           var registration =  document.getElementById("rname").value;
+           var car_type = document.getElementById("cars").value;
+           var vehicle1 =document.getElementById("vehicle1").value;
+           var vehicle2 = document.getElementById("vehicle2").value;
+           var vehicle3 = document.getElementById("vehicle3").value;
+
+
+           var data = JSON.stringify({"registration": registration, "car_type": car_type, "feature": [vehicle1,vehicle2,vehicle3]});
+
+console.log(data);
+           request.send(data);
+
+       });  
+
+</script>
+
+</body>
+
+</html>
